@@ -70,6 +70,19 @@ int main(void)
 					while(((UART0->USR) & 0x1)){}
 				}
 			}
+			if(UART0->OFFSET_0.RBR == 0x33)
+			{
+				for(int i = 0; i < 10; i++)
+				{
+					scr[i] = 0xCC;
+				}
+				for(int i = 0; i < 10; i++)
+				{
+					UART0->OFFSET_0.THR = (dst[i] & 0xFF);
+					while(((UART0->USR) & 0x1)){}
+				}
+			}
+			
 			UART0->OFFSET_0.THR = UART0->OFFSET_0.RBR;
 			while(((UART0->USR) & 0x1)){}
 		}
